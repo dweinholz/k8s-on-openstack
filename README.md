@@ -17,9 +17,9 @@ The following mandatory environment variables need to be set before calling `ans
 The following optional environment variables can also be set:
 
   * `NAME`: name of the Kubernetes cluster, used to derive instance names, `kubectl` configuration and security group name
-  * `IMAGE`: name of an existing Ubuntu 16.04 image
+  * `IMAGE`: name of an existing Ubuntu
   * `EXTERNAL_NETWORK`: name of the neutron external network, defaults to 'public'
-  * `FLOATING_IP_POOL`: name of the floating IP pool
+  * `FLOATING_IP`: Floating Ip to use for the Master
   * `FLOATING_IP_NETWORK_UUID`: uuid of the floating IP network (required for LBaaSv2)
   * `USE_OCTAVIA`: try to use Octavia instead of Neutron LBaaS, defaults to False
   * `USE_LOADBALANCER`: assume a loadbalancer is used and allow traffic to nodes (default: false)

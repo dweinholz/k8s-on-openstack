@@ -3,6 +3,7 @@
     path: /etc/kubernetes/kubelet.conf
   register: kubelet_conf
 
+
 - name: kubeadm join
   command: "{{ hostvars[groups.master[0]]['joincommand'] }}"
   args:

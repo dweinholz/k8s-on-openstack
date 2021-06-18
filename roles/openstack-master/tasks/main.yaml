@@ -15,7 +15,9 @@
     flavor: "{{ master_flavor_name if master_flavor_name else omit }}"
     nics:
       - net-name: "{{ network_name }}"
-    floating_ip_pools: "{{ floating_ip_pools }}"
+    floating_ips:
+      - "{{floating_ip}}"
+
     userdata: |
       #cloud-config
       package_upgrade: true
@@ -58,3 +60,9 @@
     state: present
     line: "{{ lookup('pipe', 'ssh-keyscan ' + instance.openstack.public_v4 ) }}"
   when: state == "present"
+  
+
+
+
+
+

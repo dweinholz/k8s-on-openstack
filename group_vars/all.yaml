@@ -3,13 +3,13 @@ key_name: "{{ lookup('env','KEY') }}"
 name: "{{ lookup('env','NAME') | default('k8s', true) }}"
 
 network_name: "{{ lookup('env','NETWORK') | default(name, true) }}"
-subnet_name: "{{ lookup('env','NETWORK') | default(name, true) }}"
+subnet_name: "{{ lookup('env','NETWORK_SUBNET') | default(name, true) }}"
 subnet_cidr: "{{ lookup('env','SUBNET_CIDR') | default('10.8.10.0/24', true) }}"
 pod_subnet_cidr: "{{ lookup('env','POD_SUBNET_CIDR') | default('10.96.0.0/16', true) }}"
 cluster_dns_ip: "{{ lookup('env','CLUSTER_DNS_IP') | default('10.96.0.10', true) }}"
 
-router_name: "{{ lookup('env','NAME') | default(name, true) }}"
-floating_ip_pools: "{{ lookup('env', 'FLOATING_IP_POOL') | default(omit, true) }}"
+router_name: "{{ lookup('env','ROUTER_NAME') | default(name, true) }}"
+floating_ip: "{{ lookup('env', 'FLOATING_IP') | default(omit, true) }}"
 external_network_name: "{{ lookup('env', 'EXTERNAL_NETWORK') | default('public', true) }}"
 use_octavia: "{{ lookup('env', 'USE_OCTAVIA') | default('False', true) | bool }}"
 use_loadbalancer: "{{ lookup('env', 'USE_LOADBALANCER') | default('False', true) | bool }}"
@@ -47,7 +47,7 @@ helm_install: "{{ lookup('env', 'HELM_INSTALL').split(';') | default([], true) }
 availability_zone: "{{ lookup('env','AVAILABILITY_ZONE') | default('nova', true) }}"
 
 #Change at your own risk
-kubernetes_version: v1.15.2
-kubernetes_ubuntu_version: 1.15.2-00
-kubernetes_cni_ubuntu_version: 0.7.5-00
-docker_version: 18.09.7-0ubuntu1~18.04.4
+kubernetes_version: v1.19.0
+kubernetes_ubuntu_version: 1.19.0-00
+kubernetes_cni_ubuntu_version: 0.8.7-00
+docker_version: 20.10.2-0ubuntu1~20.04.2

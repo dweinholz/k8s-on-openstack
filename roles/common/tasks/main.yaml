@@ -1,7 +1,7 @@
 - name: Wait for cloud-init to finish
   raw: while ! test -f /var/lib/cloud/instance/boot-finished; do sleep 1; done
-  retries: 5
-  delay: 1
+  retries: 20
+  delay: 2
   tags:
     - skip_ansible_lint
 

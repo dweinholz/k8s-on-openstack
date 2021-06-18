@@ -21,7 +21,7 @@
         name: "{{ router_name }}"
         network: "{{ external_network_name }}"
         interfaces:
-          - "{{ network_name }}"
+          - "{{ subnet_name }}"
       register: router
 
     - name: Set variables
@@ -44,19 +44,59 @@
     - name: Set variables
       set_fact:
         state: present
+  tasks:
+    -   name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
+        shell: |
+            swapoff -a
+        when: state == "present"
+        become: true
+
+
+
+
+    - name: Disable SWAP in fstab since kubernetes can't work with swap enabled (2/2)
+      replace:
+        path: /etc/fstab
+        regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+        replace: '# \1'
+      when: state == "present"
+      become: true
+    
+  tags:
+    - bootstrap
+  gather_facts: false
+  roles:
+    - common
+    
+
+
+- name: Nodes preparation
+  hosts: nodes
+  tasks:
+    -   name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
+        shell: |
+            swapoff -a
+        become: true
+
+
+
+
+    - name: Disable SWAP in fstab since kubernetes can't work with swap enabled (2/2)
+      replace:
+        path: /etc/fstab
+        regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+        replace: '# \1'
+      become: true
+    
   tags:
     - bootstrap
   gather_facts: false
   roles:
     - common
 
-- name: Nodes preparation
-  hosts: nodes
-  tags:
-    - bootstrap
-  gather_facts: false
-  roles:
-    - common
+
+
+
 
 - name: Install repo and packages
   hosts: all

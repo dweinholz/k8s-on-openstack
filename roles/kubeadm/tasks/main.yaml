@@ -53,7 +53,7 @@
         "exec-opts": [
           "native.cgroupdriver=systemd"
         ],
-        "log-driver": "journald",
+        "log-driver": "json-file",
         "storage-driver": "overlay2"
       }
     dest: /etc/docker/daemon.json

@@ -1,3 +1,5 @@
+
+
 - name: Retrieve kubectl configuration
   become: yes
   fetch:
